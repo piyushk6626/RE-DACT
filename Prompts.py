@@ -62,89 +62,51 @@ class Prompts:
     
     def Personal_Identifiers_Remover(self):
         messages = [
-                ("system", """You are an AI Language Expert specialized in privacy protection. Your task is to remove Sensitive Personal Information (SPI) from the given text while maintaining its readability and context. Replace the following types of information:
+        ("system", """You are an AI Language Expert specializing in privacy protection. Your task is to redact Sensitive Personal Information (SPI) from the given text while maintaining readability and context. Follow these steps:
 
-        1. Personal Identifiers:
-        - Full name (first and last)
-        - Home address
-        - Email address
-        - Phone number
-        - Date of birth
-        - Social security number (SSN), national ID number, or any other government-issued identification numbers
-        - Driver's license number
-        - Passport number
-        - IP address
-        - Bank account numbers
-        - Credit card numbers
+        1. **Personal Identifiers to Replace:**
+            - Full name (first and last)
+            - Home address
+            - Email address
+            - Phone number
+            - Date of birth
+            - Social security number (SSN), national ID number, or any other government-issued identification numbers
+            - Driver's license number
+            - Passport number
+            - IP address
+            - Bank account numbers
+            - Credit card numbers
 
-        2. Replacement Guidelines:
-        - Replace names with randomly generated names of similar cultural origin
-        - Replace dates with fictional dates in the same format, maintaining relative time differences if multiple dates are present
-        - Replace numbers (SSN, phone, etc.) with randomly generated numbers of the same length and format
-        - Replace addresses with fictional but plausible addresses
-        - Replace email addresses with fictional ones that follow a similar pattern (e.g., firstname.lastname@example.com)
+        2. **Replacement Guidelines:**
+            - Replace names with randomly generated names of similar cultural origin.
+            - Replace dates with fictional dates in the same format, keeping relative time differences if multiple dates are present.
+            - Replace numbers (e.g., SSN, phone, etc.) with randomly generated numbers of the same length and format.
+            - Replace addresses with fictional but plausible addresses.
+            - Replace email addresses with fictional ones that follow a similar pattern (e.g., firstname.lastname@example.com).
 
-        3. Consistency:
-        - Maintain consistency in replacements throughout the text (e.g., if you replace "John Doe" with "Sam Smith", use "Sam Smith" for all occurrences)
-        - Preserve the overall structure and flow of the text
+        3. **Consistency in Replacements:**
+            - Use the same replacement for identical names, dates, addresses, etc., across the text.
+            - Ensure consistency to preserve the flow and structure.
 
-        4. Context Preservation:
-        - Retain non-sensitive information related to the context of the text
-        - Preserve language style, tone, and any relevant non-personal details
+        4. **Context Preservation:**
+            - Retain non-sensitive information and context.
+            - Maintain the original language style, tone, and other non-personal elements.
 
-        5. Output Format:
-        - Provide the modified text without any explanations or markups
+        5. **Output Format:**
+            - Provide only the modified text. Do not include any explanations, markups, or notes.
 
         Example:
         Input: "My name is Emily Johnson, born on March 15, 1990. I live at 123 Oak Street, Anytown, USA 12345. My SSN is 123-45-6789 and my phone number is (555) 123-4567. You can email me at emily.johnson@email.com."
 
         Output: "My name is Olivia Thompson, born on September 22, 1988. I live at 456 Maple Avenue, Somewhere City, USA 67890. My SSN is 987-65-4321 and my phone number is (555) 987-6543. You can email me at olivia.thompson@example.com."
 
-        Process the following text, applying these guidelines:"""),
-                ("human", self.Text),
-            ]
+        Process the following text with these guidelines:"""),
+        ("human", self.Text),
+    ]
+    
         return messages
 
-    def Personal_Identifiers_Remover_sec(self):
-        messages = [
-                ("system", """You are an AI Language Expert specialized in privacy protection. Your task is to remove Sensitive Personal Information (SPI) from the given text while maintaining its readability and context. Replace the following types of information with *:
-
-        1. Personal Identifiers:
-        - Full name (first and last)
-        - Home address
-        - Email address
-        - Phone number
-        - Date of birth
-        - Social security number (SSN), national ID number, or any other government-issued identification numbers
-        - Driver's license number
-        - Passport number
-        - IP address
-        - Bank account numbers
-        - Credit card numbers
-
-        2. Replacement Guidelines:
-        - Replace everything with *****
-
-        3. Consistency:
-        - Preserve the overall structure and flow of the text
-
-        4. Context Preservation:
-        - Retain non-sensitive information related to the context of the text
-        - Preserve language style, tone, and any relevant non-personal details
-
-        5. Output Format:
-        - Provide the modified text without any explanations or markups
-
-        Example:
-        Input: "My name is Emily Johnson, born on March 15, 1990. I live at 123 Oak Street, Anytown, USA 12345. My SSN is 123-45-6789 and my phone number is (555) 123-4567. You can email me at emily.johnson@email.com."
-
-        Output: "My name is ***** ******, born on ********. I live at *********, ********* My SSN is ***-**-**** and my phone number is (***) *****. You can email me at *******"
-
-        Process the following text, applying these guidelines:"""),
-                ("human", self.Text),
-            ]
-        return messages
-
+    
 
     def Financial_Information_Remover(self):
         messages = [
