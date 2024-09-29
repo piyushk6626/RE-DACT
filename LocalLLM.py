@@ -15,7 +15,7 @@ def Sensitive_Personal_Information_Remover(
     Employment_Information_status=False,
     Online_Account_Information_status=False,
     Demographic_Information_status=False
-                                           ):
+    ):
     Prompt=Prompts2(Text=Text)
     
     Message=Text
