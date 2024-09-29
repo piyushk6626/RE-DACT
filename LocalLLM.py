@@ -1,22 +1,36 @@
 from langchain_ollama import ChatOllama
-from Prompts import Prompts
+from Prompts import Prompts2
 
 llm = ChatOllama(
     model="llama3.2",
-    temperature=0.6,        
+    temperature=0.3,        
 )
 
 
-messages = [
-    ("system", "You are a helpful translator. Translate the user sentence to marathi."),
-    ("human", "I love programming."),
-]
+def Sensitive_Personal_Information_Remover(
+    Text,
+    Personal_Idenitty_status=True,
+    Financial_Information_status=False,
+    Health_Information_status=False,
+    Employment_Information_status=False,
+    Online_Account_Information_status=False,
+    Demographic_Information_status=False
+                                           ):
+    Prompt=Prompts2(Text=Text)
+    
+    Message=Text
+    if Personal_Idenitty_status :
+        Message=llm.invoke(Prompt.Personal_Identifiers_Remover()).content
+        Prompt=Prompts2(Text=Message)
+    print(Message) 
+    print()   
+    if Financial_Information_status :
+        Message=llm.invoke(Prompt.Financial_Information_Remover()).content
+        Prompt=Prompts2(Text=Message)
+    
+    return Message
 
-ai_msg = llm.invoke(messages)
-print(ai_msg.content)
+Text="My name is Piyush Prafulla Kulkarni. I like using python and flask for backend. my account no is 123456789"
 
-Text="My name is Piyush Prafulla Kulkarni. I like using python and flask for backend"
-Prompt=Prompts(Text=Text)
 
-ai_msg = llm.invoke(Prompt.Personal_Identifiers_Remover())
-print(ai_msg.content)
+print(Sensitive_Personal_Information_Remover(Text=Text,Financial_Information_status=True))
